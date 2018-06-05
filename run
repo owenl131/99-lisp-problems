@@ -1,0 +1,2 @@
+cat solutions_001-010.lisp | sbcl --noprint --disable-debugger
+
