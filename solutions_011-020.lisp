@@ -65,7 +65,12 @@
 (print (slice '(a b c d e f g) 0 4))
 
 ;; Q19 - Rotate list by N places
+(defun rotate-n (lst n)
+  (if (equal n 0) lst 
+    (rotate-n (append (cdr lst) (list (car lst))) (- n 1))))
 
+(format t "~%Q19 - expected: ~%(D E F G A B C)")
+(print (rotate-n '(a b c d e f g) 3))
 
 ;; Q20 - Remove element at index k from list
 (defun remove-k (lst k)
