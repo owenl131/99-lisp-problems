@@ -25,6 +25,24 @@
 ;; Q23 - Extract randomly selected elements from list
 
 ;; Q24 - Draw N different random numbers from 1..M
+(defun rand-set (nums range)
+  (if (equal nums 0) '()
+    (let ((rest (rand-set (- nums 1) range)))
+      (loop 
+        (let ((x (random range)))
+          (cond 
+            (
+              (notany (lambda (y) (equal x y)) rest)
+              (setq rest (cons x rest))
+              (return)
+            ))))
+      rest)))
+
+(format t "~%Q24 - expected: ~%Random length 5 array (no duplicates)")
+(print (rand-set 5 10))
+(print (rand-set 5 10))
+(print (rand-set 5 10))
+(print (rand-set 10 10))
 
 ;; Q25 - Generate a random permutation of a list
 (defun cut-deck (lst len)
@@ -48,7 +66,7 @@
     ((len (length lst)))
     (shuffle-n lst len 100)))
 
-(format t "~%Q23 - expected: shuffled")
+(format t "~%Q25 - expected: shuffled")
 (print (shuffle '(a b c d e f g)))
 (print (shuffle '(a b c d e f g)))
 (print (shuffle '(a b c d e f g)))
