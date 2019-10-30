@@ -1,10 +1,16 @@
 
+(defun find-k (lst k)
+  (if (equal k 0)
+    (car lst)
+    (find-k (cdr lst) (- k 1))))
 (defun split-2 (lst n)
   (cond 
     ((equal lst '()) (list '() '()))
     ((equal n 0) (list '() lst))
     (t (let ((res (split-2 (cdr lst) (- n 1))))
       (list (cons (car lst) (car res)) (car (cdr res)))))))
+(defun slice (lst a b)
+  (car (split-2 (car (cdr (split-2 lst a))) (- b a))))
 
 ;; Q21 - Insert element at given position
 (defun insert (lst value pos)
@@ -86,7 +92,19 @@
 (format t "~%Iterations before meeting initial state, length 7:")
 (print (validate-shuffle '(a b c d e f g)))
 
+
 ;; Q26 - Generate combinations of K objects from N elements
+(defun choose-k (lst k)
+  (let 
+    ((len (length lst)))
+    (let 
+      ((sel (slice (shuffle (range 0 len)) 0 k)))
+      (map 'list (lambda (x) (find-k lst x)) sel))))
+
+(format t "~%Q26: expected to choose 5 items at random from (a b c d e f g):")
+(print (choose-k '(a b c d e f g) 5)) 
+(print (choose-k '(a b c d e f g) 5)) 
+(print (choose-k '(a b c d e f g) 5)) 
 
 ;; Q27 - Group elements of set into disjoint subsets
 
